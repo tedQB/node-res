@@ -2,6 +2,9 @@
   "presets": ["stage-3"],
   "plugins": [
     "transform-es2015-arrow-functions",
-    "transform-object-assign"
+    "transform-object-assign",
+    "transform-async-to-generator",
+    "transform-es2015-modules-commonjs",
+    "transform-export-extensions"
   ]
 }
