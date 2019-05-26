@@ -1,10 +1,14 @@
 'use strict'
 
 import mongoose from "mongoose"
-import config from 'config-lite';
+//import config from 'config-lite';
 import chalk from 'chalk';
 
-mongoose.connect(config.url,{useMongoClient:true})
+const config = require('config-lite')(__dirname);
+
+console.log('config-lite',config.url);
+
+mongoose.connect(config.url);
 mongoose.Promise = global.Promise;
 
 const db = mongoose.connection;
