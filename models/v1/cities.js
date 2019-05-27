@@ -71,7 +71,7 @@ citySchema.statics.getCityById = function (id) {
             Object.entries(city.data).forEach(item=>{
                 if(item[0]!=='_id'&&item[0]!=='hotCities'){
                     item[1].forEach(cityItem=>{
-                        if(cityItem.id===id){
+                        if(cityItem.id == id){
                             resolve(cityItem)
                         }
                     })
