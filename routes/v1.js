@@ -4,4 +4,6 @@ import express from 'express'
 import CityHandle from '../controller/v1/cites'
 
 
-router.get('/cities',CityHandle)
+
+const router = express.Router();
+router.get('/cities',CityHandle);
