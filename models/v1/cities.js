@@ -54,45 +54,48 @@ citySchema.statics.cityGroup = function () {
             delete(cityObj._id);
             delete(cityObj.hotCities)
             resolve(cityObj)
-        }catch (e) {
+        }
+        catch (err) {
             reject({
                 name:'ERROR_DATA',
                 message:'查找数据失败',
             })
-            console.error(e);
+            console.error(err);
         }
     })
 }
 
-citySchema.statics.getCityById = function (id) {
-    return new Promise(async (resolve,reject)=>{
-        try{
+citySchema.statics.getCityById = function(id) {
+    return new Promise(async (resolve, reject) => {
+        try {
             const city = await this.findOne();
-            Object.entries(city.data).forEach(item=>{
-                if(item[0]!=='_id'&&item[0]!=='hotCities'){
-                    item[1].forEach(cityItem=>{
-                        if(cityItem.id == id){
+            Object.entries(city.data).forEach(item => {
+                if (item[0] !== '_id' && item[0] !== 'hotCities') {
+                    item[1].forEach(cityItem => {
+                        if (cityItem.id == id) {
+                            //console.log('find',cityItem)
                             resolve(cityItem)
                         }
                     })
                 }
             })
-        }catch (e) {
+        } catch (err) {
             reject({
-                name:'ERROR_DATA',
-                message:'查找数据失败'
-            })
-            console.error(e);
+                name: 'ERROR_DATA',
+                message: '查找数据失败',
+            });
+            console.error(err);
         }
     })
 }
 
-const Cities = mongoose.model('Cities',citySchema);
+const Cities = mongoose.model('Cities', citySchema);
 
-Cities.findOne((error,data)=>{
-    if(!data){
-        Cities.create({data:cityData})
+
+Cities.findOne((err, data) => {
+    if (!data) {
+        console.log('create');
+        Cities.create({data: cityData});
     }
-})
-
+});
 export default Cities

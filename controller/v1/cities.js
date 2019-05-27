@@ -55,8 +55,10 @@ class CityHandle extends AddressComponent{
         }
         try{
             const cityInfo = await Cities.getCityById(cityid);
-            console.lg(cityInfo);
+            //console.log('cityInfo',cityInfo);
             res.send(cityInfo);
+
+
         }catch(err){
             res.send({
                 name: 'ERROR_DATA',
