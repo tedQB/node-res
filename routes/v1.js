@@ -16,7 +16,7 @@ router.get('/cities/:id',CityHandle.getCityById);
 router.get('/exactaddress',CityHandle.getExactAddress);
 router.get('/pois',SearchPlace.search);
 router.post('/addimg:/type',baseHanle.uploadImg);
-router.post('/carts/checkout');
+router.post('/carts/checkout',Carts.checkout);
 
 
 export default router
