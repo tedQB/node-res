@@ -3,7 +3,7 @@
 
 import AddressComponent from "../../templates/addressComponent";
 import formidable from 'formidable'
-import PaymentsModel from ''
+import PaymentsModel from '../../models/v1/payments'
 
 
 class Carts extends AddressComponent{
@@ -50,11 +50,51 @@ class Carts extends AddressComponent{
             let from = geohash.split(',')[0] + ',' +  geohash.split(',')[1];
 
             try{
-                payments = await PaymentsModel.find({},'-id');
-            }catch (e) {
-                
-            }
+                payments = await PaymentsModel.find({}, '-_id');
+                cart_id = await this.getId('cart_id');
+                restaurant = await ShopModel.findOne({id: restaurant_id});
+                const to = restaurant.latitude+ ',' + restaurant.longitude;
+                deliver_time = await this.getDistance(from, to, 'tiemvalue');
+                let time = new Date().getTime() + deliver_time*1000;
+                let hour = ('0' + new Date(time).getHours()).substr(-2);
+                let minute = ('0' + new Date(time).getMinutes()).substr(-2);
+                delivery_reach_time = hour + ':' + minute;
 
+            }catch (e) {
+                console.log('获取数据数据失败', err);
+                res.send({
+                    status: 0,
+                    type: 'ERROR_DATA',
+                    message: '添加购物车失败',
+                })
+                return
+            }
+            const deliver_amount = 4;
+            let price =0;
+            entities[0].map(item=>{
+                price += item.price * item.quantity;
+                if (item.packing_fee) {
+                    this.extra[0].price += item.packing_fee*item.quantity;
+                }
+                if (item.specs[0]) {
+                    return item.name = item.name + '-' + item.specs[0];
+                }
+            })
+            //食品总价格
+            const total = price + this.extra[0].price * this.extra[0].quantity + deliver_amount;
+            //是否支持发票
+            let invoice = {
+                is_available: false,
+                status_text: "商家不支持开发票",
+            };
+            restaurant.supports.forEach(item => {
+                if (item.icon_name == '票') {
+                    invoice = {
+                        is_available: true,
+                        status_text: "不需要开发票",
+                    };
+                }
+            })
 
         })
     }

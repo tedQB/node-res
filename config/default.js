@@ -2,7 +2,7 @@
 
 module.exports = {
     port:parseInt(process.env.PORT,10)||3000,
-    url:'mongodb://localhost:27017/res',
+    url:'mongodb://localhost:27017/elem',
     session:{
         name:'SID',
         secret:'SID',
