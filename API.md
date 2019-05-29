@@ -116,3 +116,76 @@ http://localhost:3000/v1/addimg/:type
 
 ```
 
+
+### 5.获取食品列表
+
+#### 例:
+[http://localhost:3000/shopping/v2/foods?offset=0&limit=20&restaurant_id=2](http://localhost:3000/shopping/v2/foods?offset=0&limit=20&restaurant_id=2)
+
+#### 参数类型：query
+
+|参数|是否必选|类型|说明|
+|:-----|:-------:|:-----|:-----|
+|limit      |Y       |int | 获取数据数量，默认 20 |
+|offset      |Y       |int | 跳过数据条数 默认 0 |
+|restaurant_id      |Y       |int | 餐馆id |
+
+#### 返回实例:
+```javascript
+[{
+     "name": "111",
+     "image_path": "16ae8a8bc7b40873.jpg",
+     "activity": {
+         "image_text_color": "f1884f",
+         "icon_color": "f07373",
+         "image_text": "111"
+     },
+     "restaurant_id": 2,
+     "category_id": 2342,
+     "item_id": 2977,
+     "tips": "460评价 月售656份",
+     "specfoods": [{
+         "specs_name": "默认",
+         "name": "111",
+         "item_id": 2977,
+         "sku_id": 13468,
+         "food_id": 13466,
+         "restaurant_id": 2,
+         "_id": "5ce797bfbede5d271928d8c4",
+         "specs": [],
+         "stock": 1000,
+         "checkout_mode": 1,
+         "is_essential": false,
+         "recent_popularity": 462,
+         "sold_out": false,
+         "price": 20,
+         "promotion_stock": -1,
+         "recent_rating": 2.7,
+         "packing_fee": 1,
+         "pinyin_name": "",
+         "original_price": 0
+     }],
+     "satisfy_rate": 88,
+     "satisfy_count": 443,
+     "attributes": [{
+         "icon_color": "5ec452",
+         "icon_name": "新"
+     }, {
+         "icon_color": "f07373",
+         "icon_name": "招牌"
+     }],
+     "is_essential": false,
+     "server_utc": "2019-05-21T13:47:21.363Z",
+     "specifications": [],
+     "rating_count": 460,
+     "month_sales": 656,
+     "description": "11",
+     "attrs": [],
+     "display_times": [],
+     "pinyin_name": "",
+     "is_featured": 0,
+     "rating": 4.3,
+     "__v": 0
+ }]
+
+```
