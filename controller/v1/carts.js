@@ -21,6 +21,7 @@ class Carts extends AddressComponent{
         }]
         this.checkout = this.checkout.bind(this);
     }
+    //post 所选商品加入购物车
     async checkout(req, res, next){
         const UID = req.sessionID;
         const form = new formidable.IncomingForm();
@@ -52,11 +53,11 @@ class Carts extends AddressComponent{
             let from = geohash.split(',')[0] + ',' +  geohash.split(',')[1];
 
             try{
-                payments = await PaymentsModel.find({}, '-_id');
-                cart_id = await this.getId('cart_id');
-                restaurant = await ShopModel.findOne({id: restaurant_id});
-                const to = restaurant.latitude+ ',' + restaurant.longitude;
-                deliver_time = await this.getDistance(from, to, 'tiemvalue');
+                payments = await PaymentsModel.find({}, '-_id'); //查找订单
+                cart_id = await this.getId('cart_id'); //购物车id
+                restaurant = await ShopModel.findOne({id: restaurant_id});//店铺id
+                const to = restaurant.latitude+ ',' + restaurant.longitude; //店铺坐标
+                deliver_time = await this.getDistance(from, to, 'tiemvalue');//投递时间
                 let time = new Date().getTime() + deliver_time*1000;
                 let hour = ('0' + new Date(time).getHours()).substr(-2);
                 let minute = ('0' + new Date(time).getMinutes()).substr(-2);
@@ -73,7 +74,7 @@ class Carts extends AddressComponent{
             }
             const deliver_amount = 4;
             let price =0;
-            entities[0].map(item=>{
+            entities[0].map(item=>{ //
                 price += item.price * item.quantity;
                 if (item.packing_fee) {
                     this.extra[0].price += item.packing_fee*item.quantity;
@@ -98,7 +99,41 @@ class Carts extends AddressComponent{
                 }
             })
 
+            const checkoutInfo = { //订单详情
+                id:cart_id, //购物车id
+                cart:{
+                    id: cart_id,
+                    groups: entities,
+                    extra: this.extra,
+                    deliver_amount, //投递数量
+                    is_deliver_by_fengniao: !!restaurant.delivery_mode, //蜂鸟转送
+                    original_total: total, //总价
+                    phone: restaurant.phone, //店铺手机号
+                    restaurant_id,//店铺id
+                    restaurant_info: restaurant, //店铺
+                    restaurant_minimum_order_amount: restaurant.float_minimum_order_amount,
+                    total,
+                    user_id: UID,
+                },
+                delivery_reach_time, //到达时间
+                invoice, //发票
+                sig: Math.ceil(Math.random()*1000000).toString(),
+                payments, //支付方式
+            }
+            try{
+                const newCart = new CartModel(checkoutInfo);
+            }catch (err) {
+                console.log('保存购物车数据失败')
+                res.send({
+                    status:0,
+                    type:'ERROR_TO_SAVE_CART',
+                    message:'加入购物车失败'
+                })
+            }
+
         })
     }
 
 }
+
+export default new Carts()
