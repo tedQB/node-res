@@ -27,3 +27,18 @@ const hongbaoSchema = new Schema({
     present_status: Number,
     share_status: Number,
 })
+
+hongbaoSchema.index({id: 1});
+
+const Hongbao = mongoose.model('Hongbao',hongbaoSchema);
+
+Hongbao.findOne((err,data)=>{
+    if(!data){
+        hongbaoData.forEach(item=>{
+            Hongbao.create(item)
+        })
+    }
+})
+
+
+export default Hongbao

@@ -181,3 +181,16 @@ const menuSchema = new Schema({
     },
     foods:[foodSchema]
 })
+
+
+foodSchema.index({item_id:1})
+
+menuSchema.index({id:1})
+
+const Food = mongoose.model('Food',foodSchema);
+
+const Menu = mongoose.model('Menu',menuSchema)
+
+export {Food, Menu}
+
+

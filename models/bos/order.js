@@ -154,3 +154,9 @@ const orderSchema = new Schema({
     user_id: Number,
     address_id: Number,
 })
+
+orderSchema.index({id:1})
+
+const Order = mongoose.model('Order',orderSchema);
+
+export default Order;
