@@ -39,7 +39,7 @@ const userInfoSchema = new Schema({
         default: 3
     },
     city: String,
-    registe_time: String,//注册事件
+    registe_time: String,//注册时间
     id: Number,
     user_id: Number,//用户id
     is_active: {//活动
@@ -91,6 +91,6 @@ const userInfoSchema = new Schema({
 userInfoSchema.index({id: 1});
 
 
-const UserInfo = mongoose.model('UserInfo', userInfoSchema);
+const wUserInfo = mongoose.model('UserInfo', userInfoSchema);
 
 export default UserInfo
