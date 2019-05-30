@@ -4,6 +4,7 @@ import Cities from '../../models/v1/cities'
 import pinyin from 'pinyin'
 import AddressComponent from '../../templates/addressComponent'
 
+//城市
 class CityHandle extends AddressComponent{
     constructor(){
         super()

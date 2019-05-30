@@ -4,6 +4,7 @@ import BaseComponent from '../../templates/baseComponent'
 import AddressModel from '../../models/v1/address'
 import formidable from 'formidable'
 
+//地址control
 class Address extends BaseComponent{
     constructor(){
         super()

@@ -4,6 +4,7 @@ import AddressComponent from '../../templates/addressComponent';
 import Cities from '../../models/v1/cities';
 import CityHandle from './cities'
 
+//搜索地址
 class SearchPlace extends AddressComponent{
     constructor(){
         super()

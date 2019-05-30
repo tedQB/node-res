@@ -2,7 +2,7 @@
 
 import captchapng from 'captchapng';
 
-
+//验证码
 class Captheas {
 
     constructor(){
@@ -23,3 +23,5 @@ class Captheas {
         });
     }
 }
+
+export default new Captheas()
