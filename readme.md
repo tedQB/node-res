@@ -2,14 +2,13 @@
 # About
 
 
-饿了么APP nodejs-restful 接口项目
+外卖APP nodejs-restful 接口项目
 
 整个项目分为两部分：前台项目接口、后台管理接口，共60多个。
 涉及登陆、注册、添加商品、商品展示、筛选排序、购物车、下单、用户中心等，构成一个完整的流程。
 
 项目中package.json 的nodejs模块均为目前最新版，向后兼容，使用下来只有config-lite v2版本模块于v1版本区别较大之外，其余没有遇到很大问题。
 
-特别感谢 bailicangdu 提供的nodejs+express 教程及项目
 
 
 ## 技术栈
